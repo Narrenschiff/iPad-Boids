@@ -25,6 +25,10 @@
 		3C3A9CEC182108FF0068773C /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C3A9CC4182108FE0068773C /* UIKit.framework */; };
 		3C3A9CF4182108FF0068773C /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 3C3A9CF2182108FF0068773C /* InfoPlist.strings */; };
 		3C3A9CF6182108FF0068773C /* BoidsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3A9CF5182108FF0068773C /* BoidsTests.m */; };
+		3C3A9D0018210CE00068773C /* Bee.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C3A9CFF18210CE00068773C /* Bee.png */; };
+		3C3A9D061821B3E50068773C /* BoidManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3A9D051821B3E50068773C /* BoidManager.m */; };
+		3C3A9D091821B7230068773C /* Boid.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3A9D081821B7230068773C /* Boid.m */; };
+		3C3A9D131826ADAF0068773C /* Laser.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C3A9D121826ADAF0068773C /* Laser.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -62,6 +66,12 @@
 		3C3A9CF1182108FF0068773C /* BoidsTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "BoidsTests-Info.plist"; sourceTree = "<group>"; };
 		3C3A9CF3182108FF0068773C /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		3C3A9CF5182108FF0068773C /* BoidsTests.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = BoidsTests.m; sourceTree = "<group>"; };
+		3C3A9CFF18210CE00068773C /* Bee.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Bee.png; sourceTree = "<group>"; };
+		3C3A9D041821B3E50068773C /* BoidManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = BoidManager.h; sourceTree = "<group>"; };
+		3C3A9D051821B3E50068773C /* BoidManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoidManager.m; sourceTree = "<group>"; };
+		3C3A9D071821B7230068773C /* Boid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Boid.h; sourceTree = "<group>"; };
+		3C3A9D081821B7230068773C /* Boid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Boid.m; sourceTree = "<group>"; };
+		3C3A9D121826ADAF0068773C /* Laser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Laser.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,6 +102,7 @@
 		3C3A9CB4182108FE0068773C = {
 			isa = PBXGroup;
 			children = (
+				3C3A9D121826ADAF0068773C /* Laser.png */,
 				3C3A9CC8182108FE0068773C /* Boids */,
 				3C3A9CEF182108FF0068773C /* BoidsTests */,
 				3C3A9CBF182108FE0068773C /* Frameworks */,
@@ -131,7 +142,12 @@
 				3C3A9CDB182108FE0068773C /* ViewController.m */,
 				3C3A9CDD182108FE0068773C /* MyScene.h */,
 				3C3A9CDE182108FE0068773C /* MyScene.m */,
+				3C3A9D041821B3E50068773C /* BoidManager.h */,
+				3C3A9D051821B3E50068773C /* BoidManager.m */,
+				3C3A9D071821B7230068773C /* Boid.h */,
+				3C3A9D081821B7230068773C /* Boid.m */,
 				3C3A9CE0182108FE0068773C /* Spaceship.png */,
+				3C3A9CFF18210CE00068773C /* Bee.png */,
 				3C3A9CE2182108FE0068773C /* Images.xcassets */,
 				3C3A9CC9182108FE0068773C /* Supporting Files */,
 			);
@@ -243,11 +259,13 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3C3A9D0018210CE00068773C /* Bee.png in Resources */,
 				3C3A9CE1182108FE0068773C /* Spaceship.png in Resources */,
 				3C3A9CE3182108FE0068773C /* Images.xcassets in Resources */,
 				3C3A9CD9182108FE0068773C /* Main_iPad.storyboard in Resources */,
 				3C3A9CD6182108FE0068773C /* Main_iPhone.storyboard in Resources */,
 				3C3A9CCD182108FE0068773C /* InfoPlist.strings in Resources */,
+				3C3A9D131826ADAF0068773C /* Laser.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -270,6 +288,8 @@
 				3C3A9CDC182108FE0068773C /* ViewController.m in Sources */,
 				3C3A9CD3182108FE0068773C /* AppDelegate.m in Sources */,
 				3C3A9CCF182108FE0068773C /* main.m in Sources */,
+				3C3A9D061821B3E50068773C /* BoidManager.m in Sources */,
+				3C3A9D091821B7230068773C /* Boid.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
