@@ -24,7 +24,9 @@ CFTimeInterval lastUpdateTimeInterval;
 CFTimeInterval timeSinceLast;
 @synthesize boidManager;
 
-NSSet *attractors;
+SKNode *boidRootNode;
+SKNode *touchTargets;
+NSMutableSet *attractors;
 
 -(id)initWithSize:(CGSize)size {    
     if (self = [super initWithSize:size]) {
@@ -41,6 +43,12 @@ NSSet *attractors;
 //        
 //        //[self addChild:myLabel];
         boidManager = [[BoidManager alloc] initWithCapacity:N_BOIDS];
+        boidRootNode = [[SKNode alloc] init];
+        boidRootNode.position = CGPointMake(0,0);
+        touchTargets = [[SKNode alloc] init];
+        touchTargets.position = CGPointMake(0,0);
+        [self addChild:boidRootNode];
+        [self addChild:touchTargets];
         for (uint i = 0; i < N_BOIDS; i++) {
             SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Laser"];
             
@@ -51,7 +59,7 @@ NSSet *attractors;
             sprite.position = [boidManager getBoidLocationForPosition:i];
             sprite.zRotation = [boidManager getBoidOrientationForPosition:i];
             
-            [self addChild:sprite];
+            [boidRootNode addChild:sprite];
         }
     }
     return self;
@@ -60,10 +68,18 @@ NSSet *attractors;
 -(void)didEvaluateActions
 {
     [boidManager nextTimeStep: timeSinceLast < 0.5 ? timeSinceLast : 0.5 withAttractors:attractors];
-    for (uint i = 0; i < [self.children count]; i++) {
-        SKNode *s = [self.children objectAtIndex:i];
+    for (uint i = 0; i < [boidRootNode.children count]; i++) {
+        SKNode *s = [boidRootNode.children objectAtIndex:i];
         s.position = [boidManager getBoidLocationForPosition:i];
         s.zRotation = [boidManager getBoidOrientationForPosition:i];
+    }
+    [touchTargets removeChildrenInArray:touchTargets.children];
+    for (NSValue *a in attractors) {
+        SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Target"];
+        CGSize spriteSize = CGSizeMake(125.0, 125.0);
+        sprite.size = spriteSize;
+        sprite.position = [a CGPointValue];
+        [touchTargets addChild:sprite];
     }
 }
 
@@ -75,10 +91,11 @@ NSSet *attractors;
     attractors = [self attractorsWithUITouches:touches];
 }
 
-- (NSSet *) attractorsWithUITouches:(NSSet *)touches
+- (NSMutableSet *) attractorsWithUITouches:(NSSet *)touches
 {
     NSMutableSet *attractors = [NSMutableSet setWithCapacity:[touches count]];
     for (UITouch *t in touches) {
+        if (t.phase == UITouchPhaseEnded || t.phase == UITouchPhaseCancelled) continue;
         CGPoint p = [t locationInNode:self];
         [attractors addObject:[NSValue valueWithCGPoint:p]];
         //NSLog(@"Touch at %f,%f", p.x, p.y);
@@ -90,6 +107,9 @@ NSSet *attractors;
     attractors = [self attractorsWithUITouches:touches];
 }
 
+- (void) touchesCancelled:(NSSet *)touches withEvent:(UIEvent *)event{
+    attractors = [self attractorsWithUITouches:touches];
+}
 
 -(void)update:(CFTimeInterval)currentTime {
     /* Called before each frame is rendered */
