@@ -63,6 +63,7 @@
     self.manager.minBoidVelocity = self.minBoidVelocity.value;
     self.manager.momentumFactor = self.momentumFactor.value;
     self.manager.copyingRadius = self.copyingRadius.value;
+    self.manager.centroidRadius = self.centroidRadius.value;
     self.manager.avoidanceRadius = self.avoidanceRadius.value;
     self.manager.attractorRadius = self.attractorRadius.value;
     self.manager.viewingAngle = self.viewingAngle.value;
