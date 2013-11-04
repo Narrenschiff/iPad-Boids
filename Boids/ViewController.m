@@ -8,8 +8,11 @@
 
 #import "ViewController.h"
 #import "MyScene.h"
+#import "SettingsViewController.h"
 
 @implementation ViewController
+
+MyScene * scene;
 
 - (void)viewDidLoad
 {
@@ -21,7 +24,7 @@
     skView.showsNodeCount = YES;
     
     // Create and configure the scene.
-    SKScene * scene = [MyScene sceneWithSize:skView.bounds.size];
+    scene = [MyScene sceneWithSize:skView.bounds.size];
     scene.scaleMode = SKSceneScaleModeAspectFill;
     
     // Present the scene.
@@ -30,7 +33,7 @@
 
 - (BOOL)shouldAutorotate
 {
-    return YES;
+    return NO;
 }
 
 - (NSUInteger)supportedInterfaceOrientations
@@ -47,5 +50,24 @@
     [super didReceiveMemoryWarning];
     // Release any cached data, images, etc that aren't in use.
 }
+
+- (IBAction)settings:(id)sender
+{
+    NSLog(@"Button Pushed");
+    // Create the modal view controller
+    SettingsViewController *viewController = [[SettingsViewController alloc]
+                                           initWithNibName:@"SettingsViewController"
+                                           bundle:nil];
+    
+    viewController.manager = scene.boidManager;
+    viewController.modalTransitionStyle = UIModalTransitionStyleCoverVertical;
+    
+    // show the navigation controller modally
+    [self presentViewController:viewController animated:YES completion:Nil];
+}
+
+
+
+
 
 @end

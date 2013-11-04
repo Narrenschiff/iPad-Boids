@@ -11,4 +11,6 @@
 
 @interface ViewController : UIViewController
 
+- (IBAction)settings:(id)sender;
+
 @end

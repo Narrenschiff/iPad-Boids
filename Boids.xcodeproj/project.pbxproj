@@ -18,7 +18,6 @@
 		3C3A9CD9182108FE0068773C /* Main_iPad.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 3C3A9CD7182108FE0068773C /* Main_iPad.storyboard */; };
 		3C3A9CDC182108FE0068773C /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3A9CDB182108FE0068773C /* ViewController.m */; };
 		3C3A9CDF182108FE0068773C /* MyScene.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3A9CDE182108FE0068773C /* MyScene.m */; };
-		3C3A9CE1182108FE0068773C /* Spaceship.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C3A9CE0182108FE0068773C /* Spaceship.png */; };
 		3C3A9CE3182108FE0068773C /* Images.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 3C3A9CE2182108FE0068773C /* Images.xcassets */; };
 		3C3A9CEA182108FF0068773C /* XCTest.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C3A9CE9182108FF0068773C /* XCTest.framework */; };
 		3C3A9CEB182108FF0068773C /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 3C3A9CC0182108FE0068773C /* Foundation.framework */; };
@@ -29,6 +28,8 @@
 		3C3A9D061821B3E50068773C /* BoidManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3A9D051821B3E50068773C /* BoidManager.m */; };
 		3C3A9D091821B7230068773C /* Boid.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3A9D081821B7230068773C /* Boid.m */; };
 		3C3A9D131826ADAF0068773C /* Laser.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C3A9D121826ADAF0068773C /* Laser.png */; };
+		3C3A9D151826F3FA0068773C /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C3A9D141826F3FA0068773C /* SettingsViewController.xib */; };
+		3C3A9D181826F4D60068773C /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3A9D171826F4D60068773C /* SettingsViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -59,7 +60,6 @@
 		3C3A9CDB182108FE0068773C /* ViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ViewController.m; sourceTree = "<group>"; };
 		3C3A9CDD182108FE0068773C /* MyScene.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyScene.h; sourceTree = "<group>"; };
 		3C3A9CDE182108FE0068773C /* MyScene.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyScene.m; sourceTree = "<group>"; };
-		3C3A9CE0182108FE0068773C /* Spaceship.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Spaceship.png; sourceTree = "<group>"; };
 		3C3A9CE2182108FE0068773C /* Images.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Images.xcassets; sourceTree = "<group>"; };
 		3C3A9CE8182108FF0068773C /* BoidsTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = BoidsTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		3C3A9CE9182108FF0068773C /* XCTest.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = XCTest.framework; path = Library/Frameworks/XCTest.framework; sourceTree = DEVELOPER_DIR; };
@@ -72,6 +72,9 @@
 		3C3A9D071821B7230068773C /* Boid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Boid.h; sourceTree = "<group>"; };
 		3C3A9D081821B7230068773C /* Boid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Boid.m; sourceTree = "<group>"; };
 		3C3A9D121826ADAF0068773C /* Laser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Laser.png; sourceTree = "<group>"; };
+		3C3A9D141826F3FA0068773C /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
+		3C3A9D161826F4D60068773C /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
+		3C3A9D171826F4D60068773C /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -146,8 +149,10 @@
 				3C3A9D051821B3E50068773C /* BoidManager.m */,
 				3C3A9D071821B7230068773C /* Boid.h */,
 				3C3A9D081821B7230068773C /* Boid.m */,
-				3C3A9CE0182108FE0068773C /* Spaceship.png */,
 				3C3A9CFF18210CE00068773C /* Bee.png */,
+				3C3A9D141826F3FA0068773C /* SettingsViewController.xib */,
+				3C3A9D161826F4D60068773C /* SettingsViewController.h */,
+				3C3A9D171826F4D60068773C /* SettingsViewController.m */,
 				3C3A9CE2182108FE0068773C /* Images.xcassets */,
 				3C3A9CC9182108FE0068773C /* Supporting Files */,
 			);
@@ -260,8 +265,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				3C3A9D0018210CE00068773C /* Bee.png in Resources */,
-				3C3A9CE1182108FE0068773C /* Spaceship.png in Resources */,
 				3C3A9CE3182108FE0068773C /* Images.xcassets in Resources */,
+				3C3A9D151826F3FA0068773C /* SettingsViewController.xib in Resources */,
 				3C3A9CD9182108FE0068773C /* Main_iPad.storyboard in Resources */,
 				3C3A9CD6182108FE0068773C /* Main_iPhone.storyboard in Resources */,
 				3C3A9CCD182108FE0068773C /* InfoPlist.strings in Resources */,
@@ -290,6 +295,7 @@
 				3C3A9CCF182108FE0068773C /* main.m in Sources */,
 				3C3A9D061821B3E50068773C /* BoidManager.m in Sources */,
 				3C3A9D091821B7230068773C /* Boid.m in Sources */,
+				3C3A9D181826F4D60068773C /* SettingsViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

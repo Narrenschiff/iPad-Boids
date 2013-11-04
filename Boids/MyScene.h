@@ -7,7 +7,10 @@
 //
 
 #import <SpriteKit/SpriteKit.h>
+#import "BoidManager.h"
 
 @interface MyScene : SKScene
+
+@property (strong, atomic) BoidManager *boidManager;
 
 @end

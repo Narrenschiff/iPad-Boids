@@ -24,6 +24,7 @@ void norm(CGFloat *x, CGFloat *y)
 @implementation BoidManager
 
 NSMutableArray *boids;
+NSSet *attractors;
 
 -(BoidManager *) initWithCapacity:(NSUInteger)n
 {
@@ -46,20 +47,22 @@ NSMutableArray *boids;
         }
     }
     
-    self.minBoidVelocity = 30.0;
+    self.minBoidVelocity = 40.0;
     self.momentumFactor = 0.25;
-    self.viewingAngle = 270.0/360.0 * 2 * M_1_PI;
+    self.viewingAngle = 270.0/360.0 * 2 * M_PI;
     
-    self.copyRadius = 80.0;
+    self.copyingRadius = 80.0;
     self.centroidRadius = 30.0;
-    self.avoidanceRadius = 10.0;
+    self.avoidanceRadius = 20.0;
+    self.attractorRadius = 300.0;
     
-    self.copyWeight = 0.5;
+    self.copyingWeight = 0.5;
     self.centroidWeight = 0.5;
     self.avoidanceWeight = 1.0;
+    self.attractorWeight = 1.0;
     
-    self.width = 750;
-    self.height = 920;
+    self.width = 768;
+    self.height = 1024;
 
     return self;
 }
@@ -93,8 +96,9 @@ NSMutableArray *boids;
     return atan2f(b.dy, b.dx);
 }
 
--(void) nextTimeStep:(NSTimeInterval)deltat
+-(void) nextTimeStep:(NSTimeInterval)deltat withAttractors:(NSSet *)attractorPoints
 {
+    attractors = attractorPoints;
     // Update velocity for all boids
     for (Boid *b in boids) {
         [self updateBoidVelocity:b];
@@ -119,7 +123,7 @@ NSMutableArray *boids;
     CGFloat y = mainBoid.p.y;
     
     // Radius thresholds for excluding boids that are too far away
-    CGFloat rMax = _copyRadius > _centroidRadius ? _copyRadius : _centroidRadius;
+    CGFloat rMax = _copyingRadius > _centroidRadius ? _copyingRadius : _centroidRadius;
     rMax = rMax > _avoidanceRadius ? rMax : _avoidanceRadius;
     CGFloat rMaxSquared = rMax * rMax;
     
@@ -137,6 +141,8 @@ NSMutableArray *boids;
     CGFloat n_centroid = 0;
     CGFloat x_avoid = 0;
     CGFloat y_avoid = 0;
+    CGFloat x_attractor = 0;
+    CGFloat y_attractor = 0;
     
     // Loop over all the boids
     for (Boid *b in boids) {
@@ -171,7 +177,7 @@ NSMutableArray *boids;
         }
         
         // Copy boid's heading
-        if(distance <= _copyRadius && distance > _avoidanceRadius) {
+        if(distance <= _copyingRadius && distance > _avoidanceRadius) {
             x_copy += b.dx;
             y_copy += b.dy;
         }
@@ -192,30 +198,53 @@ NSMutableArray *boids;
     }
     
     // Avoid edges
-    if (x < 0){
-        x_avoid += 0 - x;
+    if (x < _avoidanceRadius){
+        x_avoid += _avoidanceRadius - x;
     }
-    if (x > _width) x_avoid += _width -x;
-    if (y < 0){
-        y_avoid += 0 - y;
+    if (x > _width - _avoidanceRadius) x_avoid += (_width - _avoidanceRadius) - x;
+    if (y < _avoidanceRadius){
+        y_avoid += _avoidanceRadius - y;
     }
-    if (y > _height) y_avoid += _height - y;
+    if (y > _height - _avoidanceRadius) y_avoid += (_height - _avoidanceRadius) - y;
     
     
-    // Skip centering on just one bird to avoid needy weirdness
+    // Skip centering if there's just one bird, to avoid needy weirdness
     if(n_centroid < 2){
         x_centroid = 0;
         y_centroid = 0;
+    }
+    
+    // Loop over attractors
+    CGFloat attractorRadiusSquared = _attractorRadius * _attractorRadius;
+    for (NSValue *v in attractors) {
+        CGPoint a = [v CGPointValue];
+        CGFloat distanceX = a.x - x;
+        CGFloat distanceY = a.y - y;
+        CGFloat distanceSquared = distanceX * distanceX + distanceY * distanceY;
+        if (distanceSquared > attractorRadiusSquared) continue;
+        CGFloat distance = sqrt(distanceSquared);
+        distanceX *= 1 / distance;
+        distanceY *= 1 / distance;
+        x_attractor += distanceX;
+        y_attractor += distanceY;
     }
     
     // Normalise everything
     norm(&x_centroid, &y_centroid);
     norm(&x_copy, &y_copy);
     norm(&x_avoid, &y_avoid);
+    norm(&x_attractor, &y_attractor);
     
     // Combine all into a vector
-    CGFloat xt = _centroidWeight * x_centroid + _copyWeight * x_copy + _avoidanceWeight * x_avoid;
-    CGFloat yt = _centroidWeight * y_centroid + _copyWeight * y_copy + _avoidanceWeight * y_avoid;
+    CGFloat xt = _centroidWeight * x_centroid + _copyingWeight * x_copy + _avoidanceWeight * x_avoid + _attractorWeight * x_attractor;
+    CGFloat yt = _centroidWeight * y_centroid + _copyingWeight * y_copy + _avoidanceWeight * y_avoid + _attractorWeight * y_attractor;
+    
+    // Add some noise, perhaps
+    if(_noiseWeight > 0) {
+        xt += (1 - (float)arc4random_uniform(200)/100.0) * _noiseWeight;
+        yt += (1 - (float)arc4random_uniform(200)/100.0) * _noiseWeight;
+    }
+    
     
     // Update velocity with momentum
     CGFloat new_dx = mainBoid.dx * _momentumFactor + xt * (1 - _momentumFactor);
