@@ -26,10 +26,10 @@
 		3C3A9CF6182108FF0068773C /* BoidsTests.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3A9CF5182108FF0068773C /* BoidsTests.m */; };
 		3C3A9D061821B3E50068773C /* BoidManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3A9D051821B3E50068773C /* BoidManager.m */; };
 		3C3A9D091821B7230068773C /* Boid.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3A9D081821B7230068773C /* Boid.m */; };
-		3C3A9D131826ADAF0068773C /* Laser.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C3A9D121826ADAF0068773C /* Laser.png */; };
 		3C3A9D151826F3FA0068773C /* SettingsViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3C3A9D141826F3FA0068773C /* SettingsViewController.xib */; };
 		3C3A9D181826F4D60068773C /* SettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3C3A9D171826F4D60068773C /* SettingsViewController.m */; };
 		3C3A9D1E182845AD0068773C /* Target.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C3A9D1D182845AC0068773C /* Target.png */; };
+		3C3A9D20182853C90068773C /* Boid.png in Resources */ = {isa = PBXBuildFile; fileRef = 3C3A9D1F182853C90068773C /* Boid.png */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -70,11 +70,11 @@
 		3C3A9D051821B3E50068773C /* BoidManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = BoidManager.m; sourceTree = "<group>"; };
 		3C3A9D071821B7230068773C /* Boid.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Boid.h; sourceTree = "<group>"; };
 		3C3A9D081821B7230068773C /* Boid.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Boid.m; sourceTree = "<group>"; };
-		3C3A9D121826ADAF0068773C /* Laser.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; name = Laser.png; path = ../Laser.png; sourceTree = "<group>"; };
 		3C3A9D141826F3FA0068773C /* SettingsViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SettingsViewController.xib; sourceTree = "<group>"; };
 		3C3A9D161826F4D60068773C /* SettingsViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = SettingsViewController.h; sourceTree = "<group>"; };
 		3C3A9D171826F4D60068773C /* SettingsViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = SettingsViewController.m; sourceTree = "<group>"; };
 		3C3A9D1D182845AC0068773C /* Target.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Target.png; sourceTree = "<group>"; };
+		3C3A9D1F182853C90068773C /* Boid.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Boid.png; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -136,7 +136,6 @@
 		3C3A9CC8182108FE0068773C /* Boids */ = {
 			isa = PBXGroup;
 			children = (
-				3C3A9D121826ADAF0068773C /* Laser.png */,
 				3C3A9CD1182108FE0068773C /* AppDelegate.h */,
 				3C3A9CD2182108FE0068773C /* AppDelegate.m */,
 				3C3A9CD4182108FE0068773C /* Main_iPhone.storyboard */,
@@ -149,6 +148,7 @@
 				3C3A9D051821B3E50068773C /* BoidManager.m */,
 				3C3A9D071821B7230068773C /* Boid.h */,
 				3C3A9D1D182845AC0068773C /* Target.png */,
+				3C3A9D1F182853C90068773C /* Boid.png */,
 				3C3A9D081821B7230068773C /* Boid.m */,
 				3C3A9D141826F3FA0068773C /* SettingsViewController.xib */,
 				3C3A9D161826F4D60068773C /* SettingsViewController.h */,
@@ -266,11 +266,11 @@
 			files = (
 				3C3A9D1E182845AD0068773C /* Target.png in Resources */,
 				3C3A9CE3182108FE0068773C /* Images.xcassets in Resources */,
+				3C3A9D20182853C90068773C /* Boid.png in Resources */,
 				3C3A9D151826F3FA0068773C /* SettingsViewController.xib in Resources */,
 				3C3A9CD9182108FE0068773C /* Main_iPad.storyboard in Resources */,
 				3C3A9CD6182108FE0068773C /* Main_iPhone.storyboard in Resources */,
 				3C3A9CCD182108FE0068773C /* InfoPlist.strings in Resources */,
-				3C3A9D131826ADAF0068773C /* Laser.png in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

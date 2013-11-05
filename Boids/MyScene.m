@@ -50,9 +50,9 @@ NSMutableSet *attractors;
         [self addChild:boidRootNode];
         [self addChild:touchTargets];
         for (uint i = 0; i < N_BOIDS; i++) {
-            SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Laser"];
+            SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Boid"];
             
-            CGSize spriteSize = CGSizeMake(10.0, 10.0);
+            CGSize spriteSize = CGSizeMake(10.0, 15.0);
             
             sprite.size = spriteSize;
             
