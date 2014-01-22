@@ -6,11 +6,10 @@
 //  Copyright (c) 2013 Richard Smith. All rights reserved.
 //
 
-#import <Foundation/Foundation.h>
+#import <SpriteKit/SpriteKit.h>
 
-@interface Boid : NSObject
+@interface Boid : SKSpriteNode
 
-@property CGPoint p;
 @property CGFloat dx;
 @property CGFloat dy;
 @property CGFloat new_dx;

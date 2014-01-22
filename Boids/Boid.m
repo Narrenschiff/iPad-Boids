@@ -10,4 +10,13 @@
 
 @implementation Boid
 
+-(id)init
+{
+    if (self = [super initWithImageNamed:@"Boid"])
+    {
+        self.size = CGSizeMake(10.0, 15.0);
+    }
+    return self;
+}
+
 @end

@@ -43,24 +43,12 @@ NSMutableSet *attractors;
 //        
 //        //[self addChild:myLabel];
         boidManager = [[BoidManager alloc] initWithCapacity:N_BOIDS];
-        boidRootNode = [[SKNode alloc] init];
+        boidRootNode = boidManager.rootBoidNode;
         boidRootNode.position = CGPointMake(0,0);
         touchTargets = [[SKNode alloc] init];
         touchTargets.position = CGPointMake(0,0);
         [self addChild:boidRootNode];
         [self addChild:touchTargets];
-        for (uint i = 0; i < N_BOIDS; i++) {
-            SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Boid"];
-            
-            CGSize spriteSize = CGSizeMake(10.0, 15.0);
-            
-            sprite.size = spriteSize;
-            
-            sprite.position = [boidManager getBoidLocationForPosition:i];
-            sprite.zRotation = [boidManager getBoidOrientationForPosition:i];
-            
-            [boidRootNode addChild:sprite];
-        }
     }
     return self;
 }
@@ -68,11 +56,6 @@ NSMutableSet *attractors;
 -(void)didEvaluateActions
 {
     [boidManager nextTimeStep: timeSinceLast < 0.5 ? timeSinceLast : 0.5 withAttractors:attractors];
-    for (uint i = 0; i < [boidRootNode.children count]; i++) {
-        SKNode *s = [boidRootNode.children objectAtIndex:i];
-        s.position = [boidManager getBoidLocationForPosition:i];
-        s.zRotation = [boidManager getBoidOrientationForPosition:i];
-    }
     [touchTargets removeChildrenInArray:touchTargets.children];
     for (NSValue *a in attractors) {
         SKSpriteNode *sprite = [SKSpriteNode spriteNodeWithImageNamed:@"Target"];

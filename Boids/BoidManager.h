@@ -34,4 +34,6 @@
 @property CGFloat height;
 @property CGFloat width;
 
+@property SKNode *rootBoidNode;
+
 @end

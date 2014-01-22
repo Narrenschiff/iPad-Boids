@@ -147,9 +147,9 @@
 				3C3A9D041821B3E50068773C /* BoidManager.h */,
 				3C3A9D051821B3E50068773C /* BoidManager.m */,
 				3C3A9D071821B7230068773C /* Boid.h */,
+				3C3A9D081821B7230068773C /* Boid.m */,
 				3C3A9D1D182845AC0068773C /* Target.png */,
 				3C3A9D1F182853C90068773C /* Boid.png */,
-				3C3A9D081821B7230068773C /* Boid.m */,
 				3C3A9D141826F3FA0068773C /* SettingsViewController.xib */,
 				3C3A9D161826F4D60068773C /* SettingsViewController.h */,
 				3C3A9D171826F4D60068773C /* SettingsViewController.m */,
@@ -516,6 +516,7 @@
 				3C3A9CFB182108FF0068773C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		3C3A9CFC182108FF0068773C /* Build configuration list for PBXNativeTarget "BoidsTests" */ = {
 			isa = XCConfigurationList;
@@ -524,6 +525,7 @@
 				3C3A9CFE182108FF0068773C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

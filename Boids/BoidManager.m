@@ -30,50 +30,56 @@ NSSet *attractors;
 {
     if((self = [super init]))
     {
+        // Set up array for boids
         boids = [[NSMutableArray alloc] initWithCapacity:n];
+        
+        // And create a root spritekit node for them
+        _rootBoidNode = [[SKNode alloc] init];
+        
         for (uint i=0; i<n; i++) {
             Boid *b = [[Boid alloc] init];
             
             // Start position
             CGFloat x = 200 + (float)arc4random_uniform(30000) / 100.0;
             CGFloat y = 200 + (float)arc4random_uniform(60000) / 100.0;
-            b.p = CGPointMake(x, y);
+            b.position = CGPointMake(x, y);
             
             // Velocity vector
             b.dx = 50.0 - (float)arc4random_uniform(30000) / 150.0;
             b.dy = 50.0 - (float)arc4random_uniform(30000) / 150.0;
             
             [boids addObject:b];
+            [_rootBoidNode addChild:b];
         }
+        
+        
+        self.minBoidVelocity = 40.0;
+        self.momentumFactor = 0.25;
+        self.viewingAngle = 270.0/360.0 * 2 * M_PI;
+        
+        self.copyingRadius = 80.0;
+        self.centroidRadius = 30.0;
+        self.avoidanceRadius = 20.0;
+        self.attractorRadius = 300.0;
+        
+        self.copyingWeight = 0.5;
+        self.centroidWeight = 0.5;
+        self.avoidanceWeight = 1.0;
+        self.attractorWeight = 1.0;
+        
+        self.width = 768;
+        self.height = 1024;
     }
     
-    self.minBoidVelocity = 40.0;
-    self.momentumFactor = 0.25;
-    self.viewingAngle = 270.0/360.0 * 2 * M_PI;
-    
-    self.copyingRadius = 80.0;
-    self.centroidRadius = 30.0;
-    self.avoidanceRadius = 20.0;
-    self.attractorRadius = 300.0;
-    
-    self.copyingWeight = 0.5;
-    self.centroidWeight = 0.5;
-    self.avoidanceWeight = 1.0;
-    self.attractorWeight = 1.0;
-    
-    self.width = 768;
-    self.height = 1024;
-
     return self;
 }
 
 -(void) oldnextTimeStep:(NSTimeInterval)deltat
 {
     for (Boid *b in boids) {
-        CGFloat newX = b.p.x + b.dx * deltat;
-        CGFloat newY = b.p.y + b.dy * deltat;
-        CGPoint p = CGPointMake(newX, newY);
-        b.p = p;
+        CGFloat newX = b.position.x + b.dx * deltat;
+        CGFloat newY = b.position.y + b.dy * deltat;
+        b.position = CGPointMake(newX, newY);
         
         CGFloat theta = (float)arc4random_uniform(20)/100.0 - 0.10;
         CGFloat newdX = b.dx * cosf(theta) - b.dy * sinf(theta);
@@ -87,7 +93,7 @@ NSSet *attractors;
 {
     Boid *b = [boids objectAtIndex:n];
     //NSLog(@"Boid %d Position %f,%f", n, b.p.x, b.p.y);
-    return b.p;
+    return b.position;
 }
 
 -(CGFloat) getBoidOrientationForPosition:(NSUInteger) n
@@ -106,10 +112,15 @@ NSSet *attractors;
     
     // Update position for all boids
     for (Boid *b in boids) {
-        CGFloat newX = b.p.x + b.dx * deltat;
-        CGFloat newY = b.p.y + b.dy * deltat;
-        CGPoint p = CGPointMake(newX, newY);
-        b.p = p;
+        // Compute new position
+        CGFloat newX = b.position.x + b.dx * deltat;
+        CGFloat newY = b.position.y + b.dy * deltat;
+        
+        // Set new positions
+        b.position = CGPointMake(newX, newY);
+        b.zRotation = atan2f(b.dy, b.dx);
+
+        // Update deltas
         b.dx = b.new_dx;
         b.dy = b.new_dy;
     }
@@ -119,8 +130,8 @@ NSSet *attractors;
 {
     
     // Position of main boid
-    CGFloat x = mainBoid.p.x;
-    CGFloat y = mainBoid.p.y;
+    CGFloat x = mainBoid.position.x;
+    CGFloat y = mainBoid.position.y;
     
     // Radius thresholds for excluding boids that are too far away
     CGFloat rMax = _copyingRadius > _centroidRadius ? _copyingRadius : _centroidRadius;
@@ -152,8 +163,8 @@ NSSet *attractors;
         }
         
         // Compute vector between mainBoid and b
-        CGFloat xDist = b.p.x - x;
-        CGFloat yDist = b.p.y - y;
+        CGFloat xDist = b.position.x - x;
+        CGFloat yDist = b.position.y - y;
         
         // Get distance squared for cheap thresholding
         CGFloat distanceSquared = xDist * xDist + yDist * yDist;
@@ -171,8 +182,8 @@ NSSet *attractors;
         
         // Centre on boid
         if(distance <= _centroidRadius && distance > _avoidanceRadius) {
-            x_centroid += x - b.p.x;
-            y_centroid += y - b.p.y;
+            x_centroid += x - b.position.x;
+            y_centroid += y - b.position.y;
             n_centroid++;
         }
         
@@ -185,8 +196,8 @@ NSSet *attractors;
         // Avoid collision
         if(distance <= _avoidanceRadius) {
             // Avoidance vector
-            CGFloat xtemp = x - b.p.x;
-            CGFloat ytemp = y - b.p.y;
+            CGFloat xtemp = x - b.position.x;
+            CGFloat ytemp = y - b.position.y;
             
             // Scale by distance
             CGFloat d = 1 / sqrt(xtemp * xtemp + ytemp * ytemp);
@@ -249,7 +260,7 @@ NSSet *attractors;
     // Update velocity with momentum
     CGFloat new_dx = mainBoid.dx * _momentumFactor + xt * (1 - _momentumFactor);
     CGFloat new_dy = mainBoid.dy * _momentumFactor + yt * (1 - _momentumFactor);
-
+    
     // Renormalise if boid is getting too slow
     CGFloat velocity = sqrt(new_dx * new_dx + new_dy * new_dy);
     if(velocity < _minBoidVelocity) {
